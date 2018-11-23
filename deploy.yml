@@ -1,0 +1,26 @@
+---
+- name: Install python on hosts
+  hosts: rancher
+  remote_user: root
+  # remote_user: user
+  # become: yes
+  # become_method: sudo
+  gather_facts: False
+
+  tasks:
+  - name: Install python on host
+    raw: test -e /usr/bin/python2 || (apt -y update && apt install -y python-minimal python2.7)
+
+- name: Create a secure install then setup docker
+  hosts: rancher
+  remote_user: root
+  # remote_user: user
+  # become: yes
+  # become_method: sudo
+
+  roles:
+  - common
+  - networking
+  - ufw
+  - docker
+  - rancher

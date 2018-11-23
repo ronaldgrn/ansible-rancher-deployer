@@ -1,0 +1,5 @@
+[rancher]
+my.host.ip.address
+
+[rancher:vars]
+acme_domain=unset

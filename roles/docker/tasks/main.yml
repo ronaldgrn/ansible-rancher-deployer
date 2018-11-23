@@ -1,0 +1,66 @@
+# Install Docker
+# https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository
+- name: stop docker service if running
+  systemd:
+    name: docker
+    state: stopped
+
+- name: Uninstall old docker versions
+  apt:
+    name: "{{ packages }}"
+    state: absent
+  vars:
+    packages:
+    - docker
+    - docker-engine
+    - docker.io
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install requirements
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
+
+- name: Add official GPG key if not present
+  apt_key:
+    id: 0EBFCD88
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Print release name
+  debug:
+    msg: " Release is: {{ansible_distribution_release}}"
+
+- name: Add repository
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ansible_distribution_release}} stable
+    state: present
+
+- name: Update cache and install docker
+  apt:
+    name: docker-ce=17.03.2~ce-0~ubuntu-xenial
+    force: yes  # allows for downgrades since we want a specific version
+    update_cache: yes
+
+- name: Prevent docker-ce from being upgraded
+  dpkg_selections:
+    name: docker-ce
+    selection: hold
+
+- name: Start docker if not already started
+  systemd:
+    state: started
+    name: docker
+
+- name: Remove useless packages and dependencies if any
+  apt:
+    autoclean: yes
+    autoremove: yes

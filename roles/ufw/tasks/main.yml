@@ -1,0 +1,36 @@
+- name: Install ufw
+  apt:
+    name: ufw
+
+- name: Deny all incoming
+  ufw:
+    direction: incoming
+    policy: deny
+
+- name: Allow outgoing
+  ufw:
+    direction: outgoing
+    policy: allow
+
+# https://rancher.com/docs/rancher/v2.x/en/installation/references/
+
+- name: Open ports used by rancher
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  with_items:
+    - 80
+    - 443
+    - 2376
+    # 6443 # remote, secure Kubernetes API access
+
+- name: Rate limit ssh
+  ufw:
+    rule: limit
+    port: ssh
+    proto: tcp
+
+- name: Enable ufw
+  ufw:
+    state: enabled

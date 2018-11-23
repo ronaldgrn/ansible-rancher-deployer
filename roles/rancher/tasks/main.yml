@@ -1,0 +1,22 @@
+# https://github.com/ansible/ansible/issues/21348
+#- name: Start (or restart) rancher container without letsencrypt
+#  docker_container:
+#    name: rancher
+#    image: rancher/rancher:latest
+#    state: started
+#    restart: yes
+#    restart_policy: unless-stopped
+#    devices:
+#     - "/opt/rancher:/var/lib/rancher"
+#    ports:
+#     - "80:80"
+#     - "443:443"
+#    command: ["--acme-domain", "{{ acme_domain }}"]
+
+- name: Start rancher container with letsencrypt
+  command: docker run -d --restart=unless-stopped -p 80:80 -p 443:443 -v /opt/rancher:/var/lib/rancher rancher/rancher:latest --acme-domain {{ acme_domain }}
+  when: acme_domain != "unset"
+
+- name: Start rancher container without letsencrypt
+  command: docker run -d --restart=unless-stopped -p 80:80 -p 443:443 -v /opt/rancher:/var/lib/rancher rancher/rancher:latest
+  when: acme_domain == "unset"
