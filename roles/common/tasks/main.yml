@@ -4,6 +4,16 @@
     state: latest
     update_cache: yes
 
+- name: Install fail2ban
+  apt:
+    name: fail2ban
+
+- name: Start fail2ban & enable on startup
+  systemd:
+    state: started
+    enabled: yes
+    name: fail2ban
+
 - name: Secure shared memory
   mount:
     path: /run/shm
@@ -11,7 +21,4 @@
     fstype: tmpfs
     opts: defaults,noexec,nosuid
     state: present
-
-
-
 
