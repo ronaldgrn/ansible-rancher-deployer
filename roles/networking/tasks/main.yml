@@ -1,110 +1,147 @@
 - name: IP Spoofing protection
-  lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.all.rp_filter'
-    line: 'net.ipv4.conf.all.rp_filter = 1'
+  sysctl:
+    name: net.ipv4.conf.all.rp_filter
+    value: 1
+    sysctl_set: yes
+    state: present
+    reload: no
 
-- lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.default.rp_filter'
-    line: 'net.ipv4.conf.default.rp_filter = 1'
-
+- sysctl:
+    name: net.ipv4.conf.default.rp_filter
+    value: 1
+    sysctl_set: yes
+    state: present
+    reload: no
 
 - name: Ignore ICMP broadcast requests
-  lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv4.icmp_echo_ignore_broadcasts'
-    line: 'net.ipv4.icmp_echo_ignore_broadcasts = 1'
+  sysctl:
+    name: net.ipv4.icmp_echo_ignore_broadcasts
+    value: 1
+    sysctl_set: yes
+    state: present
+    reload: no
 
 - name: Disable source packet routing
-  lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.all.accept_source_route'
-    line: 'net.ipv4.conf.all.accept_source_route = 0'
+  sysctl:
+    name: net.ipv4.conf.all.accept_source_route
+    value: 0
+    sysctl_set: yes
+    state: present
+    reload: no
 
-- lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv6.conf.all.accept_source_route'
-    line: 'net.ipv6.conf.all.accept_source_route = 0'
+- sysctl:
+    name: net.ipv6.conf.all.accept_source_route
+    value: 0
+    sysctl_set: yes
+    state: present
+    reload: no
 
-- lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.default.accept_source_route'
-    line: 'net.ipv4.conf.default.accept_source_route = 0'
+- sysctl:
+    name: net.ipv4.conf.default.accept_source_route
+    value: 0
+    sysctl_set: yes
+    state: present
+    reload: no
 
-- lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv6.conf.default.accept_source_route'
-    line: 'net.ipv6.conf.default.accept_source_route = 0'
+- sysctl:
+    name: net.ipv6.conf.default.accept_source_route
+    value: 0
+    sysctl_set: yes
+    state: present
+    reload: no
 
 - name: Ignore send redirects
-  lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.all.send_redirects'
-    line: 'net.ipv4.conf.all.send_redirects = 0'
+  sysctl:
+    name: net.ipv4.conf.all.send_redirects
+    value: 0
+    sysctl_set: yes
+    state: present
+    reload: no
 
-- lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.default.send_redirects'
-    line: 'net.ipv4.conf.default.send_redirects = 0'
-
+- sysctl:
+    name: net.ipv4.conf.default.send_redirects
+    value: 0
+    sysctl_set: yes
+    state: present
+    reload: no
 
 - name: Block SYN attacks
-  lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv4.tcp_syncookies'
-    line: 'net.ipv4.tcp_syncookies = 1'
+  sysctl:
+    name: net.ipv4.tcp_syncookies
+    value: 1
+    sysctl_set: yes
+    state: present
+    reload: no
 
-- lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv4.tcp_max_syn_backlog'
-    line: 'net.ipv4.tcp_max_syn_backlog = 2048'
+- sysctl:
+    name: net.ipv4.tcp_max_syn_backlog
+    value: 2048
+    sysctl_set: yes
+    state: present
+    reload: no
 
-- lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv4.tcp_synack_retries'
-    line: 'net.ipv4.tcp_synack_retries = 2'
+- sysctl:
+    name: net.ipv4.tcp_synack_retries
+    value: 2
+    sysctl_set: yes
+    state: present
+    reload: no
 
-- lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv4.tcp_syn_retries'
-    line: 'net.ipv4.tcp_syn_retries = 5'
-
+- sysctl:
+    name: net.ipv4.tcp_syn_retries
+    value: 5
+    sysctl_set: yes
+    state: present
+    reload: no
 
 - name: Log Martians
-  lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.all.log_martians'
-    line: 'net.ipv4.conf.all.log_martians = 1'
+  sysctl:
+    name: net.ipv4.conf.all.log_martians
+    value: 1
+    sysctl_set: yes
+    state: present
+    reload: no
 
-- lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv4.icmp_ignore_bogus_error_responses'
-    line: 'net.ipv4.icmp_ignore_bogus_error_responses = 1'
+- sysctl:
+    name: net.ipv4.icmp_ignore_bogus_error_responses
+    value: 1
+    sysctl_set: yes
+    state: present
+    reload: no
 
 - name: Ignore ICMP redirects
-  lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.all.accept_redirects'
-    line: 'net.ipv4.conf.all.accept_redirects = 0'
+  sysctl:
+    name: net.ipv4.conf.all.accept_redirects
+    value: 0
+    sysctl_set: yes
+    state: present
+    reload: no
 
-- lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv6.conf.all.accept_redirects'
-    line: 'net.ipv6.conf.all.accept_redirects = 0'
+- sysctl:
+    name: net.ipv6.conf.all.accept_redirects
+    value: 0
+    sysctl_set: yes
+    state: present
+    reload: no
 
-- lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.default.accept_redirects'
-    line: 'net.ipv4.conf.default.accept_redirects = 0'
+- sysctl:
+    name: net.ipv4.conf.default.accept_redirects
+    value: 0
+    sysctl_set: yes
+    state: present
+    reload: no
 
-- lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv6.conf.default.accept_redirects'
-    line: 'net.ipv6.conf.default.accept_redirects = 0'
+- sysctl:
+    name: net.ipv6.conf.default.accept_redirects
+    value: 0
+    sysctl_set: yes
+    state: present
+    reload: no
 
-- name: Ignore Directed pings
-  lineinfile:
-    path: /etc/sysctl.conf
-    regexp: '^net.ipv4.icmp_echo_ignore_all'
-    line: 'net.ipv4.icmp_echo_ignore_all = 1'
+- name: Ignore Directed pings && reload sysctl
+  sysctl:
+    name: net.ipv4.icmp_echo_ignore_all
+    value: 1
+    sysctl_set: yes
+    state: present
+    reload: yes

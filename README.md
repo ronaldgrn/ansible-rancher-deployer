@@ -9,7 +9,7 @@ This script configures/installs the following
 - python2 (needed for ansible)  
 - ufw  
 - fail2ban  
-- /etc/sysctl.conf
+- sysctl
 - rancher/rancher:latest
 
 The rancher data is persisted in `/opt/rancher` and remains across multiple runs.
