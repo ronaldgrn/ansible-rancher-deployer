@@ -29,3 +29,10 @@
     msg:
       - "Rancher deployed successfully"
       - "Access your server at https://{{ ansible_default_ipv4.address }}/"
+  when: acme_domain == "unset"
+
+- debug:
+    msg:
+      - "Rancher deployed successfully"
+      - "Access your server at https://{{ acme_domain }}/"
+  when: acme_domain != "unset"

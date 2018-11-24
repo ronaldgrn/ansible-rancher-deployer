@@ -22,3 +22,9 @@
     opts: defaults,noexec,nosuid
     state: present
 
+- name: Disable password authentication
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication'
+    line: 'PasswordAuthentication no'
+  notify: restart ssh
