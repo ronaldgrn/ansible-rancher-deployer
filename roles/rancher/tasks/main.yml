@@ -13,16 +13,20 @@
 #     - "443:443"
 #    command: ["--acme-domain", "{{ acme_domain }}"]
 
+
+- name: Update rancher image
+  command: docker pull rancher/rancher:{{ rancher_tag }}
+
 - name: Delete previous rancher containers
   command: bash -c "(docker stop rancher && docker rm rancher) || true"
   ignore_errors: yes
 
 - name: Create rancher container with letsencrypt
-  command: docker run -d --name rancher --restart=unless-stopped -p 80:80 -p 443:443 -v /opt/rancher:/var/lib/rancher rancher/rancher:latest --acme-domain {{ acme_domain }}
+  command: docker run -d --name rancher --restart=unless-stopped -p 80:80 -p 443:443 -v /opt/rancher:/var/lib/rancher rancher/rancher:{{ rancher_tag }} --acme-domain {{ acme_domain }}
   when: acme_domain != "unset"
 
 - name: Create rancher container without letsencrypt
-  command: docker run -d --name rancher --restart=unless-stopped -p 80:80 -p 443:443 -v /opt/rancher:/var/lib/rancher rancher/rancher:latest
+  command: docker run -d --name rancher --restart=unless-stopped -p 80:80 -p 443:443 -v /opt/rancher:/var/lib/rancher rancher/rancher:{{ rancher_tag }}
   when: acme_domain == "unset"
 
 - debug:
