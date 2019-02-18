@@ -9,7 +9,9 @@
 
   tasks:
   - name: Install python on host
-    raw: test -e /usr/bin/python2 || (apt -y update && apt install -y python-minimal python2.7)
+    raw: test -e /usr/bin/python3 || (apt -y update && apt install -y python3)
+    register: output
+    changed_when: output.stdout != ""
 
 - name: Create a secure install then setup docker
   hosts: rancher

@@ -47,7 +47,7 @@
 
 - name: Update cache and install docker
   apt:
-    name: docker-ce=17.03.2~ce-0~ubuntu-xenial
+    name: docker-ce=5:18.09.2~3-0~ubuntu-xenial
     force: yes  # allows for downgrades since we want a specific version
     update_cache: yes
 

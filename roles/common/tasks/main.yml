@@ -1,8 +1,8 @@
 - name: Upgrade all packages to the latest version
   apt:
-    name: "*"
-    state: latest
+    upgrade: yes
     update_cache: yes
+    autoremove: yes
 
 - name: Install fail2ban
   apt:

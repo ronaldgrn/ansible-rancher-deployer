@@ -2,16 +2,16 @@
 # ansible-rancher  
 Ansible yaml files for configuring a single node rancher 2.0 server on Ubuntu 16.04.
   
-This was only tested on Hetzner Cloud but should work anywhere.
+This was tested on Hetzner Cloud and Digital Ocean but should work anywhere.
   
 This script does the following:
   
-- installs python2 (needed for ansible)
+- installs python3 (needed for ansible)
 - secures ports with ufw
 - installs fail2ban (uses default config)
 - disables ssh password authentication
 - hardens networking with sysctl
-- installs docker 17.03.2
+- installs docker 18.09.2
 - starts a container with the image: rancher/rancher:latest
 
 *Requirements:*
@@ -28,6 +28,8 @@ cp hosts.sample hosts
 ```
 
 If you need a specific version of rancher, change `rancher_tag` to the desired version.
+
+If you will be using your providers firewall, uncomment the `ufw` role.
 
 
 Run  the following command to deploy
