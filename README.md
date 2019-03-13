@@ -2,7 +2,7 @@
 # ansible-rancher  
 Ansible yaml files for configuring a single node rancher 2.0 server on Ubuntu 16.04.
   
-This was tested on Hetzner Cloud and Digital Ocean but should work anywhere.
+This was tested on Hetzner Cloud and DigitalOcean but should work anywhere.
   
 This script does the following:
   
