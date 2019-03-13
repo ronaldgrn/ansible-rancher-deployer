@@ -3,5 +3,5 @@ my.host.ip.address
 
 [rancher:vars]
 acme_domain=unset
-rancher_tag=latest
+rancher_tag=stable
 ansible_python_interpreter=/usr/bin/python3
