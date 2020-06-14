@@ -15,6 +15,8 @@
     - docker
     - docker-engine
     - docker.io
+    - containerd
+    - runc
 
 - name: Update apt cache
   apt:
@@ -28,6 +30,7 @@
     - apt-transport-https
     - ca-certificates
     - curl
+    - gnupg-agent
     - software-properties-common
 
 - name: Add official GPG key if not present
@@ -47,13 +50,28 @@
 
 - name: Update cache and install docker
   apt:
-    name: docker-ce=5:18.09.2~3-0~ubuntu-xenial
+    name: "{{ packages }}"
     force: yes  # allows for downgrades since we want a specific version
     update_cache: yes
+  vars:
+    packages:
+    - docker-ce=5:19.03*
+    - docker-ce-cli=5:19.03*
+    - containerd.io
 
 - name: Prevent docker-ce from being upgraded
   dpkg_selections:
     name: docker-ce
+    selection: hold
+
+- name: Prevent docker-ce-cli from being upgraded
+  dpkg_selections:
+    name: docker-ce-cli
+    selection: hold
+
+- name: Prevent containerd.io from being upgraded
+  dpkg_selections:
+    name: containerd.io
     selection: hold
 
 - name: Start docker if not already started
