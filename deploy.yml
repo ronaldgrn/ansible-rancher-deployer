@@ -23,6 +23,6 @@
   roles:
   - common
   - networking
-#  - ufw
+  - ufw
   - docker
   - rancher
