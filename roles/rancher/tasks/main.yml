@@ -7,11 +7,11 @@
   ignore_errors: yes
 
 - name: Create rancher container with letsencrypt
-  command: docker run -d --name rancher --restart=unless-stopped -p 80:80 -p 443:443 -v /opt/rancher:/var/lib/rancher rancher/rancher:{{ rancher_tag }} --acme-domain {{ acme_domain }}
+  command: docker run -d --name rancher --restart=unless-stopped -p 80:80 -p 443:443 --privileged -v /opt/rancher:/var/lib/rancher rancher/rancher:{{ rancher_tag }} --acme-domain {{ acme_domain }}
   when: acme_domain != "unset"
 
 - name: Create rancher container without letsencrypt
-  command: docker run -d --name rancher --restart=unless-stopped -p 80:80 -p 443:443 -v /opt/rancher:/var/lib/rancher rancher/rancher:{{ rancher_tag }}
+  command: docker run -d --name rancher --restart=unless-stopped -p 80:80 -p 443:443 --privileged -v /opt/rancher:/var/lib/rancher rancher/rancher:{{ rancher_tag }}
   when: acme_domain == "unset"
 
 - debug:
