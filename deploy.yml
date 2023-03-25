@@ -2,7 +2,7 @@
 - name: Install python on hosts
   hosts: rancher
   remote_user: root
-  # remote_user: user
+  # remote_user: azureuser
   # become: yes
   # become_method: sudo
   gather_facts: False
@@ -16,7 +16,7 @@
 - name: Create a secure install then setup docker
   hosts: rancher
   remote_user: root
-  # remote_user: user
+  # remote_user: azureuser
   # become: yes
   # become_method: sudo
 

@@ -2,7 +2,7 @@
 # ansible-rancher  
 Ansible playbook for securing, installing and upgrading a single node rancher 2.X server on Ubuntu.
 
-This playbook is compatible with Ubuntu 16.04, 18.04 & 20.04.
+This playbook is compatible with Ubuntu 16.04, 18.04, 20.04 & 22.04.
   
 This was tested on Hetzner Cloud and DigitalOcean but should work anywhere.
   
@@ -13,7 +13,7 @@ This script does the following:
 - installs fail2ban (uses default config)
 - disables ssh password authentication
 - hardens networking with sysctl
-- installs docker 19.03
+- installs docker 19.03 (or docker 23.0 on jammy)
 - starts a container with the image: rancher/rancher:stable
 
 *Requirements:*
