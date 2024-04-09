@@ -21,8 +21,11 @@
   # become_method: sudo
 
   roles:
-  - common
-  - networking
-  - ufw
-  - docker
-  - rancher
+  - role: common
+  - role: networking
+  - role: ufw
+  - role: docker
+    when: ansible_architecture != "aarch64"
+  - role: docker_arm
+    when: ansible_architecture == "aarch64"
+  - role: rancher

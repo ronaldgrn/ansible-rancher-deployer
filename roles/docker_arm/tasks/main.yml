@@ -1,0 +1,63 @@
+# Install Docker
+- name: stop docker service if running
+  systemd:
+    name: docker
+    state: stopped
+  ignore_errors: yes
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install requirements
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg-agent
+    - software-properties-common
+
+- name: Update cache and install docker.io (amd64)
+  apt:
+    name: "{{ packages }}"
+    force: yes  # allows for downgrades since we want a specific version
+    update_cache: yes
+  vars:
+    packages:
+    - docker.io=24.*
+
+- name: Print release name
+  debug:
+    msg: " Release is: {{ansible_distribution_release}}"
+
+- name: Print architecture
+  debug:
+    msg: " Architecture is: {{ansible_architecture}}"
+
+- name: Prevent docker-io from being upgraded
+  dpkg_selections:
+    name: docker.io
+    selection: hold
+
+- name: Prevent containerd from being upgraded
+  dpkg_selections:
+    name: containerd
+    selection: hold
+
+- name: Prevent runc from being upgraded
+  dpkg_selections:
+    name: runc
+    selection: hold
+
+- name: Start docker if not already started
+  systemd:
+    state: started
+    name: docker
+
+- name: Remove useless packages and dependencies if any
+  apt:
+    autoclean: yes
+    autoremove: yes
