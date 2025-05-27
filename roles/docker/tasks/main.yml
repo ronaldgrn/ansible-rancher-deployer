@@ -15,6 +15,10 @@
     - docker
     - docker-engine
     - docker.io
+    - docker-doc
+    - docker-compose
+    - docker-compose-v2
+    - podman-docker
     - containerd
     - runc
 
@@ -51,28 +55,15 @@
 - name: Update cache and install docker
   apt:
     name: "{{ packages }}"
-    force: yes  # allows for downgrades since we want a specific version
+    force: yes
     update_cache: yes
   vars:
     packages:
-    - docker-ce=5:19.03*
-    - docker-ce-cli=5:19.03*
-    - containerd.io
-  when: ansible_distribution_release != "jammy"
+      - "docker-ce={{ docker_version }}"
+      - "docker-ce-cli={{ docker_version}}"
+      - "containerd.io"
 
-- name: Update cache and install docker (jammy)
-  apt:
-    name: "{{ packages }}"
-    force: yes  # allows for downgrades since we want a specific version
-    update_cache: yes
-  vars:
-    packages:
-    - docker-ce=5:23.0.*
-    - docker-ce-cli=5:23.0.*
-    - containerd.io
-  when: ansible_distribution_release == "jammy"
-
-- name: Prevent docker-ce from being upgraded
+- name: Prevent docker packages from being upgraded
   dpkg_selections:
     name: docker-ce
     selection: hold

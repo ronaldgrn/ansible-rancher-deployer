@@ -2,18 +2,18 @@
 # ansible-rancher  
 Ansible playbook for securing, installing and upgrading a single node rancher 2.X server on Ubuntu.
 
-This playbook is compatible with Ubuntu 16.04, 18.04, 20.04 & 22.04.
+This playbook is compatible with Ubuntu 22.04 & 24.04.
   
 This was tested on Hetzner Cloud and DigitalOcean but should work anywhere.
   
 This script does the following:
   
 - installs python3 (needed for ansible)
-- secures ports with ufw
 - installs fail2ban (uses default config)
 - disables ssh password authentication
 - hardens networking with sysctl
-- installs docker 19.03 (or docker 23.0 on jammy)
+- (optionally) secures ports with ufw
+- installs the specified version of docker
 - starts a container with the image: rancher/rancher:stable
 
 *Requirements:*
@@ -31,12 +31,12 @@ cp hosts.sample hosts
 
 If you need a specific version of rancher, change `rancher_tag` to the desired version.
 
-If you will be using your providers firewall, uncomment the `ufw` role.
+The `ufw` role is commented out by default as we recommend using your providers firewall. Uncomment this from deploy.yml to configure ufw to only allow the ports rancher needs to work.
 
 
 Run  the following command to deploy
 ```  
-ansible-playbook -i hosts deploy.yml  
+ansible-playbook -i hosts deploy.yml
 ```
 
 ## Update Instructions

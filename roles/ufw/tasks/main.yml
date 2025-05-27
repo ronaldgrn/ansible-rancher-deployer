@@ -23,6 +23,14 @@
     - 80
     - 443
 
+- name: Open necessary udp ports
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: udp
+  with_items:
+    - 123  # ntp
+
 - name: Rate limit ssh
   ufw:
     rule: limit
